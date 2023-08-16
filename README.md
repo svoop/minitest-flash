@@ -13,15 +13,11 @@ Simple Minitest reporter to indicate the result of test runs in as fancy a way y
 
 ## Install
 
-### Security
-
 This gem is [cryptographically signed](https://guides.rubygems.org/security/#using-gems) in order to assure it hasn't been tampered with. Unless already done, please add the author's public key as a trusted certificate now:
 
 ```
 gem cert --add <(curl -Ls https://raw.github.com/svoop/minitest-flash/main/certs/svoop.pem)
 ```
-
-### Bundler
 
 Add the following to the <tt>Gemfile</tt> or <tt>gems.rb</tt> of your [Bundler](https://bundler.io) powered Ruby project:
 
@@ -33,6 +29,12 @@ And then install the bundle:
 
 ```
 bundle install --trust-policy MediumSecurity
+```
+
+Finally, require this gem in your `test_helper.rb` or `spec_helper.rb`:
+
+```ruby
+require 'minitest/flash'
 ```
 
 ## Usage
