@@ -5,7 +5,10 @@ module Minitest
     class Reporter < StatisticsReporter
       def report
         super
-        `minitest-flash #{test_color}`
+        begin
+          `minitest-flash #{test_color}`
+        rescue Errno::ENOENT
+        end
       end
 
       def test_color
