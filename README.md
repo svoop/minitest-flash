@@ -8,7 +8,6 @@
 Simple Minitest reporter to indicate the result of test runs in as fancy a way you like. Here's how I like it: Flash the macOS menu bar in green or red and play a short and mutable sound effect.
 
 * [Homepage](https://github.com/svoop/minitest-flash)
-* [API](https://www.rubydoc.info/gems/minitest-flash)
 * Author: [Sven Schwyn - Bitcetera](https://bitcetera.com)
 
 ## Install
