@@ -14,12 +14,6 @@ Thank you for supporting free and open-source software by sponsoring on [GitHub]
 
 ## Install
 
-This gem is [cryptographically signed](https://guides.rubygems.org/security/#using-gems) in order to assure it hasn't been tampered with. Unless already done, please add the author's public key as a trusted certificate now:
-
-```
-gem cert --add <(curl -Ls https://raw.github.com/svoop/minitest-flash/main/certs/svoop.pem)
-```
-
 Add the following to the <tt>Gemfile</tt> or <tt>gems.rb</tt> of your [Bundler](https://bundler.io) powered Ruby project:
 
 ```ruby
@@ -29,7 +23,7 @@ gem 'minitest-flash'
 And then install the bundle:
 
 ```
-bundle install --trust-policy MediumSecurity
+bundle install
 ```
 
 Finally, require this gem in your `test_helper.rb` or `spec_helper.rb`:
