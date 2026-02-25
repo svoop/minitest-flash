@@ -5,7 +5,7 @@
 
 # Minitest::Flash
 
-Simple Minitest reporter to indicate the result of test runs in as fancy a way you like. Here's how I like it: Flash the macOS menu bar in green or red and play a short and mutable sound effect.
+Simple Minitest reporter to indicate the result of test runs in as fancy a way you like. Here's how I like it: Flash the screen in green or red and play a short sound effect.
 
 * [Homepage](https://github.com/svoop/minitest-flash)
 * Author: [Sven Schwyn - Bitcetera](https://bitcetera.com)
@@ -45,52 +45,58 @@ Other people might work on the same code and prefer not use `minitest-flash`. Th
 
 ## Example
 
-I'm on macOS and like things to be as obvious and unobtrusive as possible: Flash the menu bar either in green or red and optionally play a sound effect.
+I'm on macOS and like things to be as obvious and unobtrusive as possible: Flash the screen border either in green or red and optionally play a sound effect.
 
-![Screenshot](https://github.com/svoop/minitest-flash/raw/main/doc/screenshot.gif)
+![example](https://github.com/svoop/minitest-flash/raw/main/doc/example.gif)
 
 Here's what my `/usr/local/bin/minitest-flash` executable looks like:
 
 ```zsh
 #!/bin/zsh
 
-declare -A colors
-colors[red]=bb0000
-colors[green]=00bb00
+typeset -A flash_args
+flash_args=(
+  [green]="0 200 0 8 2"
+  [red]="200 0 0 8 2"
+)
 
-if [ -z "$MINITEST_FLASH_NO_SOUND" ]; then
-  mpg123 $0.d/$1.mp3 2>/dev/null &
+if [ -z "$MINITEST_NO_FLASH" ]; then
+  border-flash ${=flash_args[$1]} &
 fi
 
-for i in {1..2}; do
-  $0.d/ChangeMenuBarColor SolidColor "$colors[$1]" >/dev/null
-  $0.d/ChangeMenuBarColor SolidColor "000000" >/dev/null
-done
+if [ -z "$MINITEST_NO_SOUND" ]; then
+  mpg123 $0.d/$1.mp3 2>/dev/null &
+fi
 ```
 
-As you see, the sound effects can easily be muted with:
+As you see, the sound or flash effects can easily be muted with:
 
 ```zsh
-export MINITEST_FLASH_NO_SOUND=1
+export MINITEST_NO_FLASH=1
+export MINITEST_NO_SOUND=1
 ```
 
-For the above to work, you have to install `mpg123` easiest through [Homebrew](https://brew.sh/):
+For the above to work, you have to install the following additional tools and files.
+
+### border-flash
+
+Follow the simple install instructions of [border-flash](https://github.com/svoop/border-flash).
+
+### mpg123
+
+This is easiest installed through [Homebrew](https://brew.sh/):
 
 ```zsh
 brew install mpg123
 ```
 
-A few support files are also necessary, let's create the directory for them:
+The sound files are also necessary:
 
 ```zsh
 sudo mkdir /usr/local/bin/minitest-flash.d
+sudo wget -P /usr/local/bin/minitest-flash.d/green.mp3 https://github.com/svoop/minitest-flash/raw/main/doc/green.mp3
+sudo wget -O /usr/local/bin/minitest-flash.d/red.mp3 https://github.com/svoop/minitest-flash/raw/main/doc/red.mp3
 ```
-
-In there you have to put three files:
-
-* the latest binary release of [ChangeMenuBarColor](https://github.com/igorkulman/ChangeMenuBarColor)
-* a [sound file `green.mp3`](https://github.com/svoop/minitest-flash/raw/main/doc/green.mp3) for successful runs
-* a [sound file `red.mp3`](https://github.com/svoop/minitest-flash/raw/main/doc/red.mp3) for failed or errored runs
 
 ## Development
 
