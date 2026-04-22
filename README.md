@@ -26,10 +26,10 @@ And then install the bundle:
 bundle install
 ```
 
-Finally, require this gem in your `test_helper.rb` or `spec_helper.rb`:
+Make sure you load plugins in `test_helper.rb` or `spec_helper.rb`:
 
 ```ruby
-require 'minitest/flash'
+Minitest.load_plugins
 ```
 
 ## Usage
